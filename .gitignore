@@ -114,3 +114,6 @@ coverage.xml
 
 # Local backups made during exact-byte source repair
 /data/repair-backups/
+
+# Unreviewed report candidates; never part of the active V1 bundle
+/data/candidates/
