@@ -2,7 +2,7 @@
 
 Infrastructure project monitoring from monthly government reports. Sentinel turns reported project records into searchable snapshots, monthly history, portfolio comparisons, and evidence-backed change signals.
 
-This repository continues the team's integrated V1 implementation. **It currently contains V1 plus setup and verification documentation; V1.1 and V2 improvements are planned, not implemented.**
+This repository continues the team's integrated V1 implementation. **It contains the integrated V1 dashboard, setup documentation, and initial Phase 1 prediction-readiness tooling. Predictive models and general additional-report ingestion are not implemented.**
 
 ## Origin and attribution
 
@@ -141,15 +141,19 @@ Observed non-failing warnings concern Starlette's httpx TestClient integration a
 
 Manual acceptance: August should show 1,731 projects unfiltered; project `611752` should show its June report gap; July–August portfolio counts should show 1,694 shared, 81 before-only and 37 after-only projects. Check filters, detail, evidence and risk signals in live mode.
 
-## Upgrade roadmap
+## Accepted seven-phase plan
 
-1. **V1.1 startup reliability:** consistent local environment loading, validated settings, repeatable PowerShell startup, and current documentation.
-2. **V1.1 correctness:** keep history date controls available after errors; display the risk API's top-level warnings; run the complete backend suite in CI.
-3. **V2 report coverage:** dataset-aware month selection and a reviewed, versioned ingestion path for additional months. Current catalog and validators are specific to the five-report dataset.
-4. **V2 investigation:** clearer comparisons, signal review filters and evidence exports.
-5. **Future predictions:** validate outcome labels, publication/availability dates, historical coverage and leakage-resistant evaluation across time and projects before training or claiming accuracy.
+Future changes are published to **this sih103 repository only**. Deployment is Phase 7.
 
-Keep upgrades small and separately tested. Preserve the API contract, provenance, literal reported values, dataset pinning, original authorship and revision archives. Ask the repository owner before subsequent pushes, merges or deployments.
+1. Prediction-ready data: additional reports, CUF mapping, availability and label feasibility.
+2. Forecasts: conventional statistical baselines and ML candidates for defined future outcomes.
+3. Predictive evaluation on later periods and held-out projects.
+4. CUF input-value assessment and evidence-based analysis of additional variables.
+5. Early-warning decision support integrated into the dashboard.
+6. End-to-end and representative-user validation.
+7. Deployment, monitoring, recovery and handover.
+
+**Phase 1 is in progress.** A read-only readiness audit and nine boundary tests have been added. No predictive model has been trained and additional-report ingestion is not yet implemented. See the [phase tracker](docs/implementation-phases.md) and [data-feasibility audit](docs/phase1/data-feasibility.md) for current blockers and exact commands. Preserve the existing API, dataset hashes and reported values throughout.
 
 ## Further documentation
 
