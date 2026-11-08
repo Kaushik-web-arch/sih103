@@ -111,3 +111,6 @@ coverage.xml
 
 # Immutable local dataset archives
 /data/revisions/
+
+# Local backups made during exact-byte source repair
+/data/repair-backups/
