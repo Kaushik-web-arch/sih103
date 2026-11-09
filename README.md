@@ -163,3 +163,7 @@ Future changes are published to **this sih103 repository only**. Deployment is P
 - [Risk intelligence](docs/risk-intelligence.md)
 - [Monthly history](docs/monthly-project-history.md)
 - [Windows verification and handover](docs/windows-local-verification.md)
+
+### Completion-evidence research
+
+A separate Table 3 extractor recovers reported completion evidence without changing the V1 API or dataset. See [coverage and Windows commands](docs/phase1/completion-evidence.md). Reported completion evidence is not yet an approved training dataset; final-cost labels and source availability remain open.

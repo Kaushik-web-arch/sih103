@@ -1,0 +1,71 @@
+[
+  {
+    "report_month": "2026-08",
+    "project_code": "612851",
+    "pdf_page": 37,
+    "actual_completion_month": "2026-06",
+    "original_target_month": "2025-09",
+    "revised_target_month": "2026-01",
+    "actual_date_status": "reported",
+    "cost_cell_raw": "333.49\n(336.42)",
+    "cumulative_expenditure_raw": "336.42"
+  },
+  {
+    "report_month": "2026-08",
+    "project_code": "702637",
+    "pdf_page": 37,
+    "actual_completion_month": "2025-10",
+    "original_target_month": "2023-03",
+    "revised_target_month": "2025-08",
+    "actual_date_status": "reported",
+    "cost_cell_raw": "23,136.00\n(37,276.00)",
+    "cumulative_expenditure_raw": "36,139.24"
+  },
+  {
+    "report_month": "2026-08",
+    "project_code": "618062",
+    "pdf_page": 37,
+    "actual_completion_month": "2026-02",
+    "original_target_month": "2025-09",
+    "revised_target_month": "2026-02",
+    "actual_date_status": "reported",
+    "cost_cell_raw": "244.83\n(0.00)",
+    "cumulative_expenditure_raw": "143.94"
+  },
+  {
+    "report_month": "2026-04",
+    "project_code": "705503",
+    "pdf_page": 35,
+    "actual_completion_month": null,
+    "original_target_month": "2025-02",
+    "revised_target_month": "2025-08",
+    "actual_date_status": "source_missing"
+  },
+  {
+    "report_month": "2026-05",
+    "project_code": "612188",
+    "pdf_page": 35,
+    "actual_completion_month": null,
+    "original_target_month": "2025-09",
+    "revised_target_month": "2026-08",
+    "actual_date_status": "source_missing"
+  },
+  {
+    "report_month": "2026-06",
+    "project_code": "701105",
+    "pdf_page": 36,
+    "actual_completion_month": null,
+    "original_target_month": "2021-12",
+    "revised_target_month": "2026-04",
+    "actual_date_status": "column_absent"
+  },
+  {
+    "report_month": "2026-07",
+    "project_code": "701406",
+    "pdf_page": 36,
+    "actual_completion_month": "2026-06",
+    "original_target_month": "2019-12",
+    "revised_target_month": "2026-03",
+    "actual_date_status": "reported"
+  }
+]

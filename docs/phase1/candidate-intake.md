@@ -59,3 +59,15 @@ Forecast horizons and time/project splits must be fixed before model comparison.
 ```
 
 The remote run passed 21 tests (12 intake, 9 readiness), with no skips. These are filesystem/metadata tests using synthetic fixtures; they do not exercise PostgreSQL or establish that a new official PDF parses correctly. The full frontend/backend suite was not rerun for this additive change.
+
+## Registered March 2026 candidate (9 November 2026)
+
+The official PAIMANA archive returned a 6,827,436-byte PDF with SHA-256 `e10411522bbc6caec5f3ef143c8399ad71221ac232e19410c1dfe87eb5c90253`. Its metadata is pinned separately in `config/candidates/march-2026.json`; original publication/availability remain unknown. Reproduce acquisition from the repository root:
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.acquire_report_candidate --metadata config\candidates\march-2026.json
+```
+
+The downloader verifies bytes before staging, rejects non-HTTPS final redirects and oversized downloads, and checks an existing candidate rather than replacing it. The digest pins the bytes observed at the official archive; it is not a publisher signature. Candidate metadata is trusted local input, not an upload endpoint.
+
+**Extraction result: rejected by the unchanged V1 adapter.** March uses parenthesized project/legacy codes without V1's identity layout; four pages also did not yield a recognized Table 6 grid. The attempted full extraction produced no accepted records. Its failed audit and issues remain isolated under the candidate directory. Do not edit V1 parsing/hashes or claim March is incorporated: a separate reviewed layout adapter and visual fixtures are still required.

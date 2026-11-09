@@ -17,3 +17,9 @@ The August release reports aggregate revised cost while the pinned ongoing-proje
 Readiness remains false. Additional sources offer a route to outcome evidence, but the verified five-month history alone does not supply actual completion and final-cost labels, evidence-backed availability dates, or an approved evaluation design. A model trained on future reported revisions would be a separately named proxy experiment, not proof of actual delay/overrun prediction accuracy.
 
 See [candidate intake](candidate-intake.md) for implemented staging and the remaining extraction/review/promotion steps. Deployment stays Phase 7.
+
+## Follow-up: 9 November 2026
+
+The alternative official [PAIMANA archive URL](https://paimana-proj.mospi.gov.in/Content/ArchiveReport/flash/2025-26/FlashReport_March_2026.pdf) successfully supplied the March report. The older IPM URL still returned HTTP 503. Exact bytes and acquisition command are in [candidate intake](candidate-intake.md). March remains quarantined because the V1 extractor rejected its layout.
+
+The existing five PDFs also yielded completed-table evidence directly, rather than relying only on press releases: see [completion extraction](completion-evidence.md). This supersedes the earlier status of no extracted actual-completion evidence, but it does not establish final cost or forecast-time availability.

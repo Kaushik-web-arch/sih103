@@ -2,6 +2,10 @@
 
 Status: **in progress; training is not approved**. This document supersedes earlier model suggestions as an implementation plan. Work is published only in `Kaushik-web-arch/sih103`. Deployment remains Phase 7.
 
+## Update: completed-table evidence
+
+The original ongoing-history audit remains unchanged. A separate reviewed-layout extractor now recovers 227 completed-table records, including 92 reported actual months. These are evidence candidates, not approved training labels. June has no actual-date column, and final outturn cost remains unverified. See [completion evidence](completion-evidence.md) for measured linkage coverage and exclusions.
+
 ## Evidence available now
 
 The pinned catalog contains April–August 2026, with expected monthly counts 1,981 / 1,987 / 1,847 / 1,775 / 1,731 (9,321 snapshots). The established full dataset has 2,111 project codes and 7,202 adjacent comparisons. These totals are baseline evidence, not independent training examples or a new full-data audit run.

@@ -4,7 +4,7 @@ All future updates go to **Kaushik-web-arch/sih103 only**. The existing Sentinel
 
 | Phase | Deliverable | Status |
 | --- | --- | --- |
-| 1. Prediction-ready data | Additional-report ingestion, CUF correspondence, source availability, identity review and verified label feasibility | In progress: full local audit confirmed 9,321 snapshots / 2,111 codes and nine readiness tests passed; candidate quarantine and 12 intake tests added; labels, availability, extraction review and promotion remain open |
+| 1. Prediction-ready data | Additional-report ingestion, CUF correspondence, source availability, identity review and verified label feasibility | In progress: full local audit confirmed 9,321 snapshots / 2,111 codes and nine readiness tests passed; candidate quarantine and completed-table extraction added (227 records, 92 reported actual months); identity, availability, final-cost labels and promotion remain open |
 | 2. Forecasts | Defined horizons/targets, statistical baselines and ML candidates for schedule and cost | Not started; requires Phase 1 evidence |
 | 3. Predictive evaluation | Later-period and held-out-project evaluation; leakage checks, error/alert/lead-time metrics and uncertainty | Not started |
 | 4. CUF value assessment | CUF-only evaluation and controlled comparison with legitimate additional data, or documented access limitations | Not started |
@@ -17,3 +17,5 @@ See [Phase 1 data feasibility](phase1/data-feasibility.md). A trained/deployed m
 Full local profiling evidence: [Phase 1 audit results](phase1/local-audit-results.md).
 
 Additional-report work: [candidate intake](phase1/candidate-intake.md) and [official-source investigation](phase1/source-investigation.md).
+
+Completed-table evidence: [measured coverage and limitations](phase1/completion-evidence.md). Missing external evidence: [data request](phase1/data-request.md).
