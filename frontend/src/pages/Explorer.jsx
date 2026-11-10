@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
-import { Search, ArrowUpRight, X, Database, CircleHelp, AlertTriangle, Check, CalendarDays, Droplets, Building2 } from "lucide-react";
-import { monthLabel, decimal, formatValue } from "../utils/format.js";
-import { matches } from "../utils/filters.js";
+import { Search, ArrowUpRight, X, AlertTriangle, Check } from "lucide-react";
+import { decimal, formatValue } from "../utils/format.js";
 import { useRequest } from "../hooks/useRequest.js";
 import { SectorIcon } from "../components/common/SectorIcon.jsx";
 import { ErrorBox } from "../components/common/ErrorBox.jsx";
 import { Loading } from "../components/common/Loading.jsx";
 import { Warnings } from "../components/common/Warnings.jsx";
 import { MonthSelect } from "../components/common/MonthSelect.jsx";
-import { Metric } from "../components/common/Metric.jsx";
 import { Pagination } from "../components/common/Pagination.jsx";
 import { Filters } from "../components/filters/Filters.jsx";
 import { FilterChips } from "../components/filters/FilterChips.jsx";
@@ -22,7 +20,8 @@ export function Explorer({
   filters,
   setFilters,
   onInspect,
-  onGap,
+  detail,
+  selectedCode,
 }) {
   const [q, setQ] = useState(""),
     [code, setCode] = useState(""),
@@ -51,75 +50,19 @@ export function Explorer({
   };
   const { result, loading, error } = useRequest(client, "/projects", params);
   const rows = result?.data || [];
-  const selectedSamples = db.snapshots.filter(
-    (s) => s.report_month === month && matches(s, filters),
-  );
   return (
     <>
       <div className="page-heading">
         <div>
-          <div className="eyebrow">THE EVIDENCE, IN VIEW</div>
+          <div className="eyebrow">PROJECT WORKSPACE</div>
           <h1>
-            Project explorer<span className="heading-dot">.</span>
+            Find a project
           </h1>
           <p>
-            Follow the projects. Inspect the source. Understand what changed.
+            Search by name or filter by project code, then select a project to see its details.
           </p>
         </div>
         <MonthSelect value={month} onChange={setMonth} />
-      </div>
-      <div className="metrics">
-        {mode === "examples" ? (
-          <>
-            <Metric
-              label="Reference records"
-              value={
-                db.snapshots.filter((s) => s.report_month === month).length
-              }
-              note={`${monthLabel(month)} · checked source excerpts`}
-            />
-            <Metric
-              label="Sectors in sample"
-              value={
-                new Set(selectedSamples.map((s) => s.identity.sector)).size
-              }
-              note="Reported sector labels"
-              icon={Building2}
-            />
-            <Metric
-              label="Missing fields"
-              value={selectedSamples.reduce(
-                (n, s) =>
-                  n +
-                  Object.values(s.values).filter((v) => v.normalized === null)
-                    .length,
-                0,
-              )}
-              note="Field occurrences · overlapping"
-              icon={CircleHelp}
-            />
-          </>
-        ) : (
-          <>
-            <Metric
-              label="Matching projects"
-              value={result?.meta?.pagination?.total_items ?? "—"}
-              note="Within the selected report scope"
-            />
-            <Metric
-              label="Snapshot month"
-              value={monthLabel(month, true)}
-              note={month.slice(0, 4)}
-              icon={CalendarDays}
-            />
-            <Metric
-              label="Dataset revision"
-              value={result?.meta.dataset_version?.slice(0, 8) || "—"}
-              note="Pinned throughout this session"
-              icon={Database}
-            />
-          </>
-        )}
       </div>
       <div className="section-bar">
         <h2>
@@ -130,6 +73,7 @@ export function Explorer({
           Source code order <Check size={14} />
         </span>
       </div>
+      <div className="project-workspace"><div className="project-results">
       <div className="table-card">
         <div className="toolbar">
           <div className="search-field">
@@ -182,10 +126,10 @@ export function Explorer({
                     <th>PROJECT / SOURCE CODE</th>
                     <th>SECTOR & LOCATION</th>
                     <th>REPORTED PROGRESS</th>
-                    <th>
+                    <th className="secondary-column">
                       EXPENDITURE <span>₹ CRORE</span>
                     </th>
-                    <th>SOURCE QUALITY</th>
+                    <th className="secondary-column">SOURCE QUALITY</th>
                     <th>
                       <span className="sr-only">Inspect</span>
                     </th>
@@ -193,10 +137,11 @@ export function Explorer({
                 </thead>
                 <tbody>
                   {rows.map((s) => (
-                    <tr key={s.project_code}>
+                    <tr key={s.project_code} className={selectedCode === s.project_code ? "selected-project" : ""}>
                       <td>
                         <button
                           className="project-name"
+                          aria-pressed={selectedCode === s.project_code}
                           onClick={() =>
                             onInspect(s.project_code, s.report_month)
                           }
@@ -224,12 +169,12 @@ export function Explorer({
                           />
                         </div>
                       </td>
-                      <td className="numeric">
+                      <td className="numeric secondary-column">
                         {decimal(
                           s.values.cumulative_expenditure_rs_crore.normalized,
                         )}
                       </td>
-                      <td>
+                      <td className="secondary-column">
                         <span className="quality-badge">
                           <AlertTriangle size={12} />
                           {s.quality.snapshot_flags.length} flags
@@ -279,35 +224,11 @@ export function Explorer({
         )}
       </div>
       <Warnings items={result?.warnings} />
-      <div className="spotlights">
-        <button
-          className="spotlight"
-          onClick={() => {
-            setMonth("2026-07");
-            onInspect("701530", "2026-07");
-          }}
-        >
-          <div className="spot-icon">
-            <Droplets size={22} />
-          </div>
-          <div>
-            <span className="eyebrow">LOOK CLOSER</span>
-            <h3>Zero is a reported value.</h3>
-            <p>Ken–Betwa: inspect zero progress and unknown dates.</p>
-          </div>
-          <ArrowUpRight size={20} />
-        </button>
-        <button className="spotlight" onClick={onGap}>
-          <div className="spot-icon sand">
-            <CalendarDays size={22} />
-          </div>
-          <div>
-            <span className="eyebrow">READ BETWEEN REPORTS</span>
-            <h3>A gap is part of the story.</h3>
-            <p>See why an absent month never becomes a trend.</p>
-          </div>
-          <ArrowUpRight size={20} />
-        </button>
+      </div>
+      {detail || <aside className="detail-placeholder"><Search size={28} />
+        <h2>Your project, in focus</h2><p>Select a project to explore reported values, monthly history and source evidence.</p>
+        <span>Reported observations · No predictive scores</span>
+      </aside>}
       </div>
     </>
   );

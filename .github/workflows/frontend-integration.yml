@@ -38,6 +38,8 @@ jobs:
         working-directory: frontend
       - run: node tests/risk-browser-smoke.mjs
         working-directory: frontend
+      - run: node tests/workspace-browser-smoke.mjs
+        working-directory: frontend
   python-syntax:
     runs-on: ubuntu-latest
     steps:

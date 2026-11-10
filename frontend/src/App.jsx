@@ -38,11 +38,12 @@ export function App() {
   if (loadError) return <ErrorBox error={loadError} />;
   if (!db) return <Loading />;
   const shared = {
-    db, client, mode: config.mode, month, setMonth, filters, setFilters, onInspect: inspect,
+    db, client, mode: config.mode, month, setMonth: (value) => { setMonth(value); setSelection(null); }, filters, setFilters, onInspect: inspect,
   };
   return (
-    <div className="app-shell">
-      <Sidebar page={page} onNavigate={setPage} />
+    <div className="app-shell workspace-b">
+      <a className="skip-link" href="#main-content">Skip to content</a>
+      <Sidebar page={page} onNavigate={(next) => { setSelection(null); setPage(next); }} />
       <div className="main-shell">
         <Topbar
           page={page}
@@ -51,10 +52,14 @@ export function App() {
           mode={config.mode}
           onOpenConnection={() => setConnection(true)}
         />
-        <main>
+        <main id="main-content">
           <SourceBanner mode={config.mode} onOpenConnection={() => setConnection(true)} />
           {page === "explore" ? (
-            <Explorer {...shared} onGap={() => setPage("evidence")} />
+            <Explorer {...shared} selectedCode={selection?.code}
+              detail={selection && <Inspector key={`${selection.code}-${selection.month}`} embedded
+                selection={selection} client={client} mode={config.mode}
+                onClose={() => setSelection(null)} onSelect={setSelection} />}
+              />
           ) : page === "portfolio" ? (
             <Portfolio {...shared} />
           ) : page === "risk" ? (
@@ -65,7 +70,7 @@ export function App() {
           <Footer />
         </main>
       </div>
-      {selection && (
+      {selection && page !== "explore" && (
         <Inspector
           key={selection.code}
           selection={selection}

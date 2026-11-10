@@ -23,6 +23,7 @@ Original commits and authorship are retained. The previous root README is preser
 - Explicit reference-example mode and live API mode.
 - SHA-256 source verification, extraction audits, dataset revision pinning, immutable database records, and atomic revision activation.
 - Responsive React interface with light/dark themes.
+- Option B workspace: horizontal navigation, project search and a side-by-side details panel on desktop; stacked details on mobile. See [UI verification](docs/ui-workspace.md).
 
 Signals are observations, not predictions or explanations of causes. A project missing from a report is not proven complete. Reported zeros remain zeros; missing values remain distinct. August's published revised-cost zeros intentionally generate a source warning.
 

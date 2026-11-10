@@ -10,7 +10,7 @@ import { ValueCard } from "./ValueCard.jsx";
 import { History } from "./History.jsx";
 import { Provenance } from "./Provenance.jsx";
 
-export function Inspector({ selection, client, mode, onClose, onSelect }) {
+export function Inspector({ selection, client, mode, onClose, onSelect, embedded = false }) {
   const [tab, setTab] = useState(selection.tab || "overview");
   const ref = useRef();
   const { result, loading, error } = useRequest(
@@ -19,6 +19,15 @@ export function Inspector({ selection, client, mode, onClose, onSelect }) {
     { report_month: selection.month },
   );
   useEffect(() => {
+    if (embedded) {
+      const previous = document.activeElement;
+      const panel = ref.current;
+      panel?.focus({ preventScroll: true });
+      if (window.matchMedia("(max-width: 1000px)").matches) {
+        panel?.scrollIntoView({ block: "start", behavior: "instant" });
+      }
+      return () => { if (panel?.contains(document.activeElement) && previous?.isConnected) previous.focus({ preventScroll: true }); };
+    }
     const prev = document.activeElement;
     ref.current?.focus();
     const fn = (e) => {
@@ -47,7 +56,7 @@ export function Inspector({ selection, client, mode, onClose, onSelect }) {
       document.body.style.overflow = "";
       prev?.focus();
     };
-  }, []);
+  }, [embedded]);
   const s = result?.data;
   const download = () => {
     const u = URL.createObjectURL(
@@ -61,16 +70,16 @@ export function Inspector({ selection, client, mode, onClose, onSelect }) {
   };
   return (
     <div
-      className="drawer-backdrop"
+      className={embedded ? "detail-pane" : "drawer-backdrop"}
       onMouseDown={(e) => {
-        if (e.target === e.currentTarget) onClose();
+        if (!embedded && e.target === e.currentTarget) onClose();
       }}
     >
       <section
         className="drawer"
         ref={ref}
-        role="dialog"
-        aria-modal="true"
+        role={embedded ? "region" : "dialog"}
+        aria-modal={embedded ? undefined : true}
         aria-labelledby="inspector-title"
         tabIndex={-1}
       >
@@ -104,19 +113,27 @@ export function Inspector({ selection, client, mode, onClose, onSelect }) {
           <span>·</span>
           {monthLabel(selection.month)}
         </div>
-        <div className="drawer-tabs" role="tablist">
+        <div className="drawer-tabs" role="tablist" aria-label="Project detail views" onKeyDown={(e) => {
+          const tabs = ["overview", "history", "provenance"];
+          const index = tabs.indexOf(tab);
+          const next = e.key === "ArrowRight" ? (index + 1) % 3 : e.key === "ArrowLeft" ? (index + 2) % 3 : e.key === "Home" ? 0 : e.key === "End" ? 2 : null;
+          if (next !== null) { e.preventDefault(); setTab(tabs[next]); e.currentTarget.querySelectorAll('[role="tab"]')[next].focus(); }
+        }}>
           {["overview", "history", "provenance"].map((t) => (
             <button
               role="tab"
+              id={`detail-tab-${t}`}
+              aria-controls="detail-content"
+              tabIndex={tab === t ? 0 : -1}
               aria-selected={tab === t}
               key={t}
               onClick={() => setTab(t)}
             >
-              {pretty(t)}
+              {t === "provenance" ? "Source" : pretty(t)}
             </button>
           ))}
         </div>
-        <div className="drawer-body">
+        <div className="drawer-body" id="detail-content" role="tabpanel" aria-labelledby={`detail-tab-${tab}`}>
           {tab === "history" ? (
             <History
               client={client}

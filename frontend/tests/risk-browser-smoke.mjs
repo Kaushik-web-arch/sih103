@@ -146,7 +146,7 @@ try {
   await page.goto(`http://127.0.0.1:${port}/`, { waitUntil: "networkidle" });
 
   // Guard: reference-mode observations cannot be presented as the full dataset.
-  await page.getByRole("button", { name: "Risk intelligence" }).click();
+  await page.getByRole("button", { name: "Report changes" }).click();
   await page.getByText("This view requires the validated live API").waitFor();
 
   await page.getByRole("button", { name: "Connect API" }).click();
